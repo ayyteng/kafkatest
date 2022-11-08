@@ -65,10 +65,6 @@ public class KafkaConsumerConfig {
         return kafkaListenerContainerFactory("partitions");
     }
 
-    // @Bean
-    // public ConcurrentKafkaListenerContainerFactory<String, String> longMessageKafkaListenerContainerFactory() {
-    //     return kafkaListenerContainerFactory("longMessage");
-    // }
 
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, String> filterKafkaListenerContainerFactory() {
@@ -78,50 +74,23 @@ public class KafkaConsumerConfig {
         return factory;
     }
 
-    // public ConsumerFactory<String, Greeting> greetingConsumerFactory() {
+    // public ConsumerFactory<String, TestObject> greetingConsumerFactory() {
     //     Map<String, Object> props = new HashMap<>();
     //     props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
-    //     props.put(ConsumerConfig.GROUP_ID_CONFIG, "greeting");
-    //     return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new JsonDeserializer<>(Greeting.class));
+    //     props.put(ConsumerConfig.GROUP_ID_CONFIG, "testObject");
+    //     return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new JsonDeserializer<>(TestObject.class));
     // }
 
     // @Bean
-    // public ConcurrentKafkaListenerContainerFactory<String, Greeting> greetingKafkaListenerContainerFactory() {
-    //     ConcurrentKafkaListenerContainerFactory<String, Greeting> factory = new ConcurrentKafkaListenerContainerFactory<>();
+    // public ConcurrentKafkaListenerContainerFactory<String, TestObject> greetingKafkaListenerContainerFactory() {
+    //     ConcurrentKafkaListenerContainerFactory<String, TestObject> factory = new ConcurrentKafkaListenerContainerFactory<>();
     //     factory.setConsumerFactory(greetingConsumerFactory());
     //     return factory;
     // }
 
-    // @Bean
-    // public RecordMessageConverter multiTypeConverter() {
-    //     StringJsonMessageConverter converter = new StringJsonMessageConverter();
-    //     DefaultJackson2JavaTypeMapper typeMapper = new DefaultJackson2JavaTypeMapper();
-    //     typeMapper.setTypePrecedence(Jackson2JavaTypeMapper.TypePrecedence.TYPE_ID);
-    //     typeMapper.addTrustedPackages("com.baeldung.spring.kafka");
-    //     Map<String, Class<?>> mappings = new HashMap<>();
-    //     mappings.put("greeting", Greeting.class);
-    //     mappings.put("farewell", Farewell.class);
-    //     typeMapper.setIdClassMapping(mappings);
-    //     converter.setTypeMapper(typeMapper);
-    //     return converter;
-    // }
+   //add bean for multitype
+   //add bean for long type
 
-    // @Bean
-    // public ConsumerFactory<String, Object> multiTypeConsumerFactory() {
-    //     HashMap<String, Object> props = new HashMap<>();
-    //     props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
-    //     props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-    //     props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-    //     return new DefaultKafkaConsumerFactory<>(props);
-    // }
-
-    // @Bean
-    // public ConcurrentKafkaListenerContainerFactory<String, Object> multiTypeKafkaListenerContainerFactory() {
-    //     ConcurrentKafkaListenerContainerFactory<String, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
-    //     factory.setConsumerFactory(multiTypeConsumerFactory());
-    //     factory.setMessageConverter(multiTypeConverter());
-    //     return factory;
-    // }
 
 
 

@@ -1,15 +1,15 @@
 package com.test.kafkademo;
 
-public class Greeting {
+public class TestObject {
 
     private String msg;
     private String name;
 
-    public Greeting() {
+    public TestObject() {
 
     }
 
-    public Greeting(String msg, String name) {
+    public TestObject(String msg, String name) {
         this.msg = msg;
         this.name = name;
     }

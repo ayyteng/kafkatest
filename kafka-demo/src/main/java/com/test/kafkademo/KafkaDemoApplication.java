@@ -30,46 +30,31 @@ public class KafkaDemoApplication {
 
         MessageProducer producer = context.getBean(MessageProducer.class);
         MessageListener listener = context.getBean(MessageListener.class);
-        /*
-         * Sending a Hello World message to topic 'baeldung'. 
-         * Must be received by both listeners with group foo
-         * and bar with containerFactory fooKafkaListenerContainerFactory
-         * and barKafkaListenerContainerFactory respectively.
-         * It will also be received by the listener with
-         * headersKafkaListenerContainerFactory as container factory.
-         */
+        
+        //Sending a Hello World message to topic 'topic1' - defined in app properties. 
+      
         producer.sendMessage("Hello, World!");
         listener.latch.await(10, TimeUnit.SECONDS);
 
-        /*
-         * Sending message to a topic with 5 partitions,
-         * each message to a different partition. But as per
-         * listener configuration, only the messages from
-         * partition 0 and 3 will be consumed.
-         */
+        
+        //Sending message to a topic with 5 partitions,
+        //each message to a different partition. But as per
+        //listener configuration, only the messages from
+        //partition 0 and 3 will be consumed.
+        
         for (int i = 0; i < 5; i++) {
             producer.sendMessageToPartition("Hello To Partitioned Topic!", i);
         }
         listener.partitionLatch.await(10, TimeUnit.SECONDS);
 
-        /*
-         * Sending message to 'filtered' topic. As per listener
-         * configuration,  all messages with char sequence
-         * 'World' will be discarded.
-         */
+        //filtered topic
         producer.sendMessageToFiltered("Hello Test!");
         producer.sendMessageToFiltered("Hello World!");
         listener.filterLatch.await(10, TimeUnit.SECONDS);
 
-        /*
-         * Sending message to 'greeting' topic. This will send
-         * and received a java object with the help of
-         * greetingKafkaListenerContainerFactory.
-         */
-
-
-        // producer.sendGreetingMessage(new Greeting("Greetings", "World!"));
-        // listener.greetingLatch.await(10, TimeUnit.SECONDS);
+		//needs testing
+        // producer.sendGreetingMessage(new TestObject("Greetings", "World!"));
+        // listener.testObjectLatch.await(10, TimeUnit.SECONDS);
 
         context.close();
     }
@@ -90,7 +75,7 @@ public class KafkaDemoApplication {
         private KafkaTemplate<String, String> kafkaTemplate;
 
         // @Autowired
-        // private KafkaTemplate<String, Greeting> greetingKafkaTemplate;
+        // private KafkaTemplate<String, TestObject> testObjectKafkaTemplate;
 
         @Value(value = "${message.topic.name}")
         private String topicName;
@@ -101,8 +86,8 @@ public class KafkaDemoApplication {
         @Value(value = "${filtered.topic.name}")
         private String filteredTopicName;
 
-        // @Value(value = "${greeting.topic.name}")
-        // private String greetingTopicName;
+        // @Value(value = "${testObject.topic.name}")
+        // private String testObjectTopicName;
 
         public void sendMessage(String message) {
 
@@ -131,8 +116,8 @@ public class KafkaDemoApplication {
             kafkaTemplate.send(filteredTopicName, message);
         }
 
-        // public void sendGreetingMessage(Greeting greeting) {
-        //     greetingKafkaTemplate.send(greetingTopicName, greeting);
+        // public void sendGreetingMessage(TestObject testObject) {
+        //     testObjectKafkaTemplate.send(testObjectTopicName, testObject);
         // }
     }
 
@@ -144,7 +129,7 @@ public class KafkaDemoApplication {
 
         private CountDownLatch filterLatch = new CountDownLatch(2);
 
-        // private CountDownLatch greetingLatch = new CountDownLatch(1);
+        // private CountDownLatch testObjectLatch = new CountDownLatch(1);
 
         @KafkaListener(topics = "${message.topic.name}", groupId = "test", containerFactory = "fooKafkaListenerContainerFactory")
         public void listenGroupFoo(String message) {
@@ -176,10 +161,10 @@ public class KafkaDemoApplication {
             this.filterLatch.countDown();
         }
 
-        // @KafkaListener(topics = "${greeting.topic.name}", containerFactory = "greetingKafkaListenerContainerFactory")
-        // public void greetingListener(Greeting greeting) {
-        //     System.out.println("Received greeting message: " + greeting);
-        //     this.greetingLatch.countDown();
+        // @KafkaListener(topics = "${testObject.topic.name}", containerFactory = "testObjectKafkaListenerContainerFactory")
+        // public void testObjectListener(TestObject testObject) {
+        //     System.out.println("Received testObject message: " + testObject);
+        //     this.testObjectLatch.countDown();
         // }
 
     }

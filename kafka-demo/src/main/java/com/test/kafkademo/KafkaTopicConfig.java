@@ -19,20 +19,17 @@ public class KafkaTopicConfig {
     @Value(value = "${message.topic.name}")
     private String topicName;
 
-    // @Value(value = "${long.message.topic.name}")
-    // private String longMsgTopicName;
-
     @Value(value = "${partitioned.topic.name}")
     private String partitionedTopicName;
 
     @Value(value = "${filtered.topic.name}")
     private String filteredTopicName;
 
-    // @Value(value = "${greeting.topic.name}")
-    // private String greetingTopicName;
+    // @Value(value = "${testObject.topic.name}")
+    // private String testObjectTopicName;
 
-    // @Value(value = "${multi.type.topic.name}")
-    // private String multiTypeTopicName;
+    //multi
+    //long
 
     @Bean
     public KafkaAdmin kafkaAdmin() {
