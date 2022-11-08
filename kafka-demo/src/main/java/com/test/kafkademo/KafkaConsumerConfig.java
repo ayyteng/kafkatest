@@ -46,13 +46,13 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, String> fooKafkaListenerContainerFactory() {
-        return kafkaListenerContainerFactory("foo");
+    public ConcurrentKafkaListenerContainerFactory<String, String> group1KafkaListenerContainerFactory() {
+        return kafkaListenerContainerFactory("group1");
     }
     
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, String> barKafkaListenerContainerFactory() {
-        return kafkaListenerContainerFactory("bar");
+    public ConcurrentKafkaListenerContainerFactory<String, String> group2KafkaListenerContainerFactory() {
+        return kafkaListenerContainerFactory("group2");
     }
 
     @Bean

@@ -131,15 +131,15 @@ public class KafkaDemoApplication {
 
         // private CountDownLatch testObjectLatch = new CountDownLatch(1);
 
-        @KafkaListener(topics = "${message.topic.name}", groupId = "test", containerFactory = "fooKafkaListenerContainerFactory")
+        @KafkaListener(topics = "${message.topic.name}", groupId = "group1", containerFactory = "group1KafkaListenerContainerFactory")
         public void listenGroupFoo(String message) {
-            System.out.println("Received Message in group 'foo': " + message);
+            System.out.println("Received Message in group 'group1': " + message);
             latch.countDown();
         }
 
-        @KafkaListener(topics = "${message.topic.name}", groupId = "bar", containerFactory = "barKafkaListenerContainerFactory")
+        @KafkaListener(topics = "${message.topic.name}", groupId = "group2", containerFactory = "group2KafkaListenerContainerFactory")
         public void listenGroupBar(String message) {
-            System.out.println("Received Message in group 'bar': " + message);
+            System.out.println("Received Message in group 'group2': " + message);
             latch.countDown();
         }
 
